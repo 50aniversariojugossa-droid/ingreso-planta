@@ -55,12 +55,20 @@
   });
 
   // ---------- Cantidad de personas ----------
+  // Se puede usar + / − o escribir el número directamente
   function setCantidad(n) {
-    estado.cantidad = Math.max(1, Math.min(500, n));
-    $('cantidad').textContent = estado.cantidad;
+    n = parseInt(n, 10);
+    estado.cantidad = isNaN(n) ? 1 : Math.max(1, Math.min(500, n));
+    $('cantidad').value = estado.cantidad;
   }
   $('menos').addEventListener('click', function () { setCantidad(estado.cantidad - 1); });
   $('mas').addEventListener('click', function () { setCantidad(estado.cantidad + 1); });
+  $('cantidad').addEventListener('input', function () {
+    var n = parseInt(this.value, 10);
+    if (!isNaN(n)) estado.cantidad = Math.max(1, Math.min(500, n));
+  });
+  $('cantidad').addEventListener('blur', function () { setCantidad(this.value); });
+  $('cantidad').addEventListener('focus', function () { this.select(); });
 
   // ---------- Datos recordados en este celular ----------
   function leerGuardado() {
@@ -215,7 +223,7 @@
     if (res.institucion) detalle.push(res.institucion);
     if (CON_GRUPO.indexOf(d.tipo) >= 0) detalle.push((res.personas || d.cantidad) + ((res.personas || d.cantidad) === 1 ? ' persona' : ' personas'));
     $('resDetalle').textContent = detalle.join(' · ');
-    var extra = !ok ? 'Calidad ya recibió el aviso.' :
+    var extra = !ok ? 'Aseguramiento de Calidad ya recibió el aviso.' :
       d.tipo === 'Proveedor de servicio' ? 'Si ingresás a planta LC o LPA: vestimenta blanca y EPP.' : '';
     $('resExtra').textContent = extra; $('resExtra').hidden = !extra;
     $('resPie').textContent = ok ? 'Mostrá esta pantalla en portería' : 'Mostrá esta pantalla al guardia';

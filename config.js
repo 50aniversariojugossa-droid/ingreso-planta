@@ -1,6 +1,3 @@
-// Link de la aplicación web de Apps Script (termina en /exec).
-// Se obtiene en Apps Script: Implementar → Gestionar implementaciones → copiar "URL de la aplicación web".
-// Con 'DEMO' la página funciona sin guardar nada (para probarla).
 window.APP_CONFIG = {
-  API_URL: 'DEMO'
+  API_URL: 'https://script.google.com/macros/s/AKfycbz6f4LU84J0yFLt7fsmiMh4GnolAWZUvlk1a20NIB44DoWKP6joiaant0SfDhB7Cl7B/exec'
 };

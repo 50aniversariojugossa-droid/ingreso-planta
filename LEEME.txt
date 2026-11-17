@@ -1,0 +1,14 @@
+INGRESO A PLANTA – Jugos S.A. · página para Vercel
+
+Archivos:
+  index.html   la página
+  styles.css   el diseño
+  app.js       el funcionamiento
+  config.js    el link del sistema (Apps Script). Es el único archivo que hay que editar.
+  logo.svg     el logo
+
+config.js:
+  API_URL: 'DEMO'  → la página funciona para probarla, pero no guarda nada.
+  API_URL: 'https://script.google.com/macros/s/.../exec'  → guarda en la planilla y manda los avisos.
+
+Los datos quedan en la planilla "Ingreso a planta – Respuestas", pestaña "Ingresos app".

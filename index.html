@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Ingreso a planta – Jugos S.A.</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main id="app">
+
+  <!-- ============ PASO 1: DATOS ============ -->
+  <section id="paso1" class="pantalla">
+    <header class="cabecera">
+      <div class="fila-cab">
+        <img src="logo.svg" alt="Juggs" class="logo">
+        <span class="paso-num">Paso 1 de 2</span>
+      </div>
+      <h1>Ingreso a planta</h1>
+      <p class="sub">Completá tus datos antes de entrar.</p>
+      <div class="progreso"><span class="on"></span><span></span></div>
+    </header>
+
+    <div class="cuerpo">
+      <p id="recordado" class="nota-ok" hidden>
+        Completamos con tus datos de la última vez. Revisalos.
+        <button type="button" id="noSoyYo" class="link">No soy yo</button>
+      </p>
+
+      <div class="campo">
+        <label for="dni">DNI</label>
+        <input id="dni" inputmode="numeric" autocomplete="off" placeholder="Sin puntos" maxlength="14">
+      </div>
+
+      <div class="campo">
+        <label for="nombre">Nombre y apellido</label>
+        <input id="nombre" autocomplete="name" maxlength="80">
+      </div>
+
+      <fieldset class="campo">
+        <legend>Tipo de ingreso</legend>
+        <div class="chips" id="tipos">
+          <button type="button" data-tipo="Particular">Particular</button>
+          <button type="button" data-tipo="Proveedor de servicio">Proveedor</button>
+          <button type="button" data-tipo="Visita turística">Visita turística</button>
+          <button type="button" data-tipo="Entidad educativa">Entidad educativa</button>
+          <button type="button" data-tipo="Auditoría">Auditoría</button>
+          <button type="button" data-tipo="Otro">Otro</button>
+        </div>
+      </fieldset>
+
+      <p id="avisoProveedor" class="aviso" hidden>
+        Si durante la visita ingresás al sector productivo (planta LC y LPA), pedí la vestimenta blanca y usá los EPP correspondientes.
+      </p>
+
+      <div id="bloqueGrupo" hidden>
+        <div class="campo">
+          <label for="institucion" id="lblInstitucion">Institución o empresa</label>
+          <input id="institucion" maxlength="100">
+        </div>
+        <div class="campo fila-personas">
+          <div>
+            <div class="etq">Personas que ingresan</div>
+            <div class="ayuda">Total del grupo, incluyéndote. Si vienen en grupo, completa una sola persona.</div>
+          </div>
+          <div class="contador">
+            <button type="button" id="menos" aria-label="Restar una persona">−</button>
+            <output id="cantidad" aria-live="polite">1</output>
+            <button type="button" id="mas" aria-label="Sumar una persona">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="bloqueAuditoria" hidden>
+        <div class="campo">
+          <label for="ente">Ente regulador / empresa</label>
+          <input id="ente" maxlength="100">
+        </div>
+        <div class="campo">
+          <label for="credencial">N° de credencial <span class="opc">(opcional)</span></label>
+          <input id="credencial" maxlength="40">
+        </div>
+        <div class="campo">
+          <label for="motivo">Motivo de la auditoría o inspección</label>
+          <textarea id="motivo" rows="3" maxlength="300"></textarea>
+        </div>
+        <fieldset class="campo">
+          <legend>¿Requiere muestra?</legend>
+          <div class="sino" data-grupo="muestra">
+            <button type="button" data-valor="Sí">Sí</button>
+            <button type="button" data-valor="No">No</button>
+          </div>
+        </fieldset>
+        <div id="bloqueMuestra" hidden>
+          <fieldset class="campo">
+            <legend>¿Requiere contramuestra?</legend>
+            <div class="sino" data-grupo="contramuestra">
+              <button type="button" data-valor="Sí">Sí</button>
+              <button type="button" data-valor="No">No</button>
+            </div>
+          </fieldset>
+          <div class="campo">
+            <label for="rotulo">Rótulo de la muestra</label>
+            <input id="rotulo" maxlength="60">
+          </div>
+        </div>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="mayor">
+        <span>Declaro ser mayor de 18 años.</span>
+      </label>
+
+      <p id="error1" class="error" role="alert" hidden></p>
+    </div>
+
+    <footer class="pie">
+      <button type="button" id="continuar" class="boton">Continuar</button>
+    </footer>
+  </section>
+
+  <!-- ============ PASO 2: SALUD Y SEGURO ============ -->
+  <section id="paso2" class="pantalla" hidden>
+    <header class="cabecera">
+      <div class="fila-cab">
+        <button type="button" id="volver" class="link volver">← Volver</button>
+        <span class="paso-num">Paso 2 de 2</span>
+      </div>
+      <h1>Salud y seguro</h1>
+      <div class="progreso"><span class="on"></span><span class="on"></span></div>
+    </header>
+
+    <div class="cuerpo">
+      <fieldset class="tarjeta">
+        <legend class="preg">¿Tenés alguna enfermedad infectocontagiosa, sobre todo diarrea, vómitos o fiebre?</legend>
+        <p class="ayuda">Declaración de estado de salud (F 101-2). Si representás a un grupo, respondé por vos y por todos los integrantes.</p>
+        <div class="sino" data-grupo="salud">
+          <button type="button" data-valor="No">No</button>
+          <button type="button" data-valor="Sí">Sí</button>
+        </div>
+        <p id="avisoSalud" class="alerta" hidden>
+          No vas a poder ingresar a planta. Enviá para dejarlo registrado y mostrale la pantalla al guardia.
+        </p>
+      </fieldset>
+
+      <fieldset class="tarjeta" id="bloqueSeguro" hidden>
+        <legend class="preg">¿Presentaste a Jugos S.A. el seguro vigente? (ART o accidentes personales)</legend>
+        <div class="sino" data-grupo="seguro">
+          <button type="button" data-valor="Sí">Sí</button>
+          <button type="button" data-valor="No">No</button>
+        </div>
+        <div id="bloqueDJ" hidden>
+          <div class="dj">
+            <p class="dj-tit">Declaración jurada para visitas no programadas (F 101-5)</p>
+            <p>La presente declaración es válida por única vez por 24 hs. Para volver a ingresar deberá presentar la documentación requerida según I 109-4.</p>
+            <p>Declaro bajo juramento que me informo y tomo conocimiento de que debo respetar y cumplir todas las normativas internas de la empresa Jugos S.A. (que declaro conocer) en cuanto al comportamiento a desarrollar mientras duren las actividades en el interior o adyacentes a la firma.</p>
+            <p>Asimismo, tengo la obligación de cumplir toda recomendación en materia de Seguridad e Higiene, utilizar los elementos y equipos de protección personal.</p>
+            <p>Acepto que, de generarse daños en las personas o cosas ingresadas, en contravención con lo declarado, o por culpa o dolo, renuncio expresa y anticipadamente a accionar contra la Empresa, sus Directivos o personal dependiente.</p>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="dj">
+            <span>Leí y acepto la declaración jurada.</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <input type="text" id="web" name="web" tabindex="-1" autocomplete="off" class="trampa" aria-hidden="true">
+      <p id="error2" class="error" role="alert" hidden></p>
+    </div>
+
+    <footer class="pie">
+      <button type="button" id="enviar" class="boton">Enviar</button>
+    </footer>
+  </section>
+
+  <!-- ============ RESULTADO ============ -->
+  <section id="resultado" class="pantalla final" hidden>
+    <div class="pastilla"><img src="logo.svg" alt="Juggs" class="logo-chico"></div>
+    <div class="centro">
+      <div class="circulo">
+        <svg id="iconoOk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <svg id="iconoNo" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
+      </div>
+      <h2 id="resTitulo"></h2>
+      <p id="resMotivo" class="res-motivo" hidden>Declaró síntomas de enfermedad infectocontagiosa.</p>
+      <p id="resFecha" class="res-fecha"></p>
+    </div>
+    <div class="caja">
+      <div id="resNombre" class="res-nombre"></div>
+      <div id="resDni"></div>
+      <div id="resDetalle"></div>
+      <div id="resExtra" class="res-extra" hidden></div>
+    </div>
+    <p id="resPie" class="res-pie"></p>
+    <button type="button" id="nuevo" class="boton-claro">Nuevo registro</button>
+  </section>
+
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
